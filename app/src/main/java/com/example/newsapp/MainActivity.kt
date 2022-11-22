@@ -1,5 +1,6 @@
 package com.example.newsapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -27,13 +28,23 @@ class MainActivity : AppCompatActivity() {
             var email = binding.email.text.toString()
             var password = binding.password.text.toString()
 
-            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener( { task ->
+            
+
+            if(!email.isEmpty() && password.isEmpty()){
+
+                intent = Intent(applicationContext, OtpVerificationActivity::class.java)
+                startActivity(intent)
+            }
+
+
+   auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener( { task ->
                 if (task.isSuccessful) {
 
                     Toast.makeText(this@MainActivity, "Is Successfull Data Add", Toast.LENGTH_SHORT).show()
 
                 }
             })
+
         }
     }
 }
